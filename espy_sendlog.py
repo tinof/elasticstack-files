@@ -6,7 +6,6 @@ from tqdm import tqdm
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import streaming_bulk
 
-# =======================
 # Configuration start
 
 es_hosts = [
@@ -16,7 +15,7 @@ es_hosts = [
 es_api_user = 'elastic'
 es_api_password = 'changeme'
 
-index_name = 'syke'
+index_name = ''
 
 chunk_size = 10000
 
@@ -29,7 +28,6 @@ max_insert_retries = 3
 yield_ok = False  # if False will skip successful documents in the output
 
 # Configuration end
-# =======================
 
 filename = ""
 

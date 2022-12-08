@@ -1,9 +1,13 @@
 import os
 import gzip
 import json
+from tqdm import tqdm
 
 # Set the path to the folder containing the .gz files
-folder_path = ''
+folder_path = '/Users/tinoftu/Downloads/dataa/kartta.kokkola.fi/rikastettu'
+
+# Initialize the progress bar
+pbar = tqdm(total=len(os.listdir(folder_path)))
 
 # Create an empty list to store the .jsonl files
 jsonl_files = []
@@ -22,6 +26,16 @@ for filename in os.listdir(folder_path):
             # Add the .jsonl file to the list
             jsonl_files.append(jsonl_filename)
 
+    # Update the progress bar
+    pbar.update(1)
+    pbar.set_description("Extracting .gz files")
+
+# Close the progress bar
+pbar.close()
+
+# Initialize a new progress bar
+pbar = tqdm(total=len(jsonl_files))
+
 # Create an empty list to store the JSON objects
 json_objects = []
 
@@ -34,7 +48,18 @@ for filename in jsonl_files:
             # Parse the line as JSON and add it to the list of JSON objects
             json_objects.append(json.loads(line))
 
+    pbar.update(1)
+    pbar.set_description("Reading .jsonl files")
+
+pbar.close()
+
+pbar = tqdm(total=len(json_objects))
+
 # Write the JSON objects to a single .jsonl file
 with open(os.path.join(folder_path, 'combined.jsonl'), 'w') as f:
     for obj in json_objects:
         f.write(json.dumps(obj) + '\n')
+        pbar.update(1)
+        pbar.set_description("Writing combined.jsonl file")
+
+pbar.close()
