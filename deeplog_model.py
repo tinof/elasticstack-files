@@ -18,8 +18,9 @@ def load_data(path):
   )
   return dataset
 
+## Removing and pointing to one jsonl file
 # Load the jsonl data from the .gz files and return a Dataset object
-dataset = load_data('/Users/tinoftu/Downloads/dataa/kartta.tuusula.fi/rikastettu/*.gz')
+# dataset = load_data('')
 
 # Preprocess the data by extracting relevant features and attributes
 @tf.function
@@ -57,4 +58,4 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 history = model.fit(train_dataset, validation_data=val_dataset)
 
 # Save the trained model in TensorFlow SavedModel format
-model.save("/Users/tinoftu/Documents", "tf")
+model.save("", "tf")

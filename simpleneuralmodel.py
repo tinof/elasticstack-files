@@ -2,7 +2,7 @@ import json
 import tensorflow as tf
 
 # Load the JSON data from the log file
-with open('/Users/tinoftu/Downloads/syke/syke.jsonl') as f:
+with open('') as f:
     log_data = [json.loads(line) for line in f]
 
 # Extract the relevant features and attributes from the JSON data
@@ -41,4 +41,4 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 history = model.fit(dataset, epochs=20)
 
 # Save the trained model in TensorFlow SavedModel format
-model.save("/Users/tinoftu/Documents", "tf")
+model.save("", "tf")
