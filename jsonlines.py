@@ -1,4 +1,4 @@
-filename = '/Users/tinoftu/Downloads/syke/syke.jsonl'
+filename = ''
 
 line_count = 0
 

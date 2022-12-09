@@ -1,7 +1,7 @@
 import os, gzip, shutil
 from tqdm import tqdm
 
-dir_name = '/Users/tinoftu/Downloads/dataa/kartta.kokkola.fi/rikastettu'
+dir_name = ''
 
 
 def gz_extract(directory):

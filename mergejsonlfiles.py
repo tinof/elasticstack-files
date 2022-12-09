@@ -1,47 +1,23 @@
-import json
-import os
-from tqdm import tqdm
+import json, os
+from jsonmerge import merge
 
-directory = '/Users/tinoftu/Downloads/dataa/kartta.kokkola.fi/rikastettu'
+directory = ""
 
-# Check all jsonl files in a directory for errors
-def check_jsonl_files(directory):
-    # Iterate over each jsonl file in the directory
-    for filename in tqdm(os.listdir(directory), desc="Checking files"):
-        if not filename.endswith('.jsonl'):
-            continue
-        # Open the file
-        with open(os.path.join(directory, filename), 'r') as f:
-            # Iterate over each line in the file
-            for i, line in enumerate(f):
-                try:
-                    # Parse the line as JSON
-                    json.loads(line)
-                except json.decoder.JSONDecodeError as e:
-                    # Print the error
-                    print(f'Error on line {i+1} of {filename}: {e}')
+# create an empty list to store the merged JSON data
+merged_json = []
 
+# iterate over the files in the directory
+for filename in os.scandir(directory):
+    if not filename.name.endswith('.jsonl'):
+        continue
+    # open the file
+    with open(filename, 'r') as f:
+        # load the JSON data from the file
+        json_data = json.load(f)
+        # merge the JSON data with the existing data
+        merged_json = merge(merged_json, json_data)
 
-
-
-# Merge all jsonl files in a directory into one file
-def merge_jsonl_files(directory):
-    # Create a list to store the lines
-    lines = []
-
-    # Iterate over each file in the directory
-    for filename in tqdm(os.listdir(directory), desc="Merging files"):
-        # Open the file
-        with open(os.path.join(directory, filename), 'r') as f:
-            # Iterate over each line in the file
-            for line in f:
-                # Add the line to the list of lines
-                lines.append(line)
-
-    # Open the output file
-    with open(os.path.join(directory, 'merged.jsonl'), 'w') as f:
-        # Write the lines to the output file
-        f.write(''.join(lines))
-
-#merge_jsonl_files(directory)
-check_jsonl_files(directory)
+# write the merged JSON data to a file
+with open('output.json', 'w') as f:
+    json.dump(merged_json, f)
+    f.close()
