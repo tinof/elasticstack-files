@@ -12,10 +12,10 @@ es_api_user = 'elastic'
 es_api_password = 'changeme'
 
 # The path to the folder containing the files to be imported
-folder_path = "/Users/tinoftu/Downloads/syke"
+folder_path = ""
 
 # The name of the Elasticsearch index to which the data will be imported
-index_name = "syke"
+index_name = ""
 
 # The Elasticsearch client
 es = Elasticsearch(es_hosts, basic_auth=(es_api_user, es_api_password))
